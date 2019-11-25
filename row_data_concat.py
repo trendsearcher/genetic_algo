@@ -15,6 +15,7 @@ df2 = pd.read_csv('E:\\history5month\\pureRTS.csv', header= 0, error_bad_lines=F
 df3 = pd.read_csv('E:\\history5month\\pureSi.csv', header= 0, error_bad_lines=False)
 
 def fix_dates(df):
+    '''fix days in dates by 9h gap between ticks'''
     df['Time'] =pd.to_datetime(df.Time)
     df['Timeshift'] = df['Time'].shift(1)
     df['timedelta'] = df['Timeshift'] - df['Time']
@@ -26,7 +27,6 @@ def fix_dates(df):
     return(df)
 
 def df_datetime_cocat(df1, df2, df3):
-    
     '''concatenates dataframes by datetime column and fill Nans'''
     df1.rename(columns={" <TIME>": "Time", " <VOLUME>": "Volume1", "<PRICE>": "Price1"}, inplace = True)
     df2.rename(columns={" <TIME>": "Time", " <VOLUME>": "Volume2", "<PRICE>": "Price2"}, inplace = True)
