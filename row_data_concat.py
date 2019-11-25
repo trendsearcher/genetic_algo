@@ -31,52 +31,15 @@ def df_datetime_cocat(df1, df2, df3):
     df1.rename(columns={" <TIME>": "Time", " <VOLUME>": "Volume1", "<PRICE>": "Price1"}, inplace = True)
     df2.rename(columns={" <TIME>": "Time", " <VOLUME>": "Volume2", "<PRICE>": "Price2"}, inplace = True)
     df3.rename(columns={" <TIME>": "Time", " <VOLUME>": "Volume3", "<PRICE>": "Price3"}, inplace = True)
-    
-    
+       
     df1 = fix_dates(df1)
     df2 = fix_dates(df2)
     df3 = fix_dates(df3)
-
-    
-
     
     sf1 = pd.concat([df1, df2, df3], ignore_index=True, sort=True)
     sf1 = sf1.sort_values(by='Time')
     sf1.fillna(method='pad', inplace=True)
     
-    
-    y = sf1[['Price1']].values.tolist()
-    x = list(range(len(y)))
-    lines = plt.plot(x, y)
-    l1 = lines
-    plt.setp(lines, linestyle='-')
-    plt.setp(l1, linewidth=1, color='b')
-    plt.grid()
-    plt.show()
-    plt.pause(0.05)
-    
-    y = df2[['Price2']].values.tolist()
-    x = list(range(len(y)))
-    lines = plt.plot(x, y)
-    l1 = lines
-    plt.setp(lines, linestyle='-')
-    plt.setp(l1, linewidth=1, color='b')
-    plt.grid()
-    plt.show()
-    plt.pause(0.05)
-
-
-    y = sf1[['Price3']].values.tolist()
-    x = list(range(len(y)))
-    lines = plt.plot(x, y)
-    l1 = lines
-    plt.setp(lines, linestyle='-')
-    plt.setp(l1, linewidth=1, color='b')
-    plt.grid()
-    plt.show()
-    plt.pause(0.05)
-
-
     return (sf1)
 
 result = df_datetime_cocat(df1, df2, df3)
